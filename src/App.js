@@ -6,7 +6,7 @@ function App() {
 
   const [poem, setPoem] = useState(data[0]);
   const [isSideBarShowing, setSideBarShowing] = useState(true);
-  const [isColorButtonShowing, setIsColorButtonShowing] = useState(false);
+  // const [isColorButtonShowing, setIsColorButtonShowing] = useState(false);
 
   return (
     <div className="App">

@@ -9,9 +9,18 @@ import chapter6 from './data/tangshi300_6.json';
 import chapter7 from './data/tangshi300_7.json';
 
 function App() {
-  let data = chapter1.concat(chapter2).concat(chapter3).concat(chapter4).concat(chapter5).concat(chapter6).concat(chapter7)
+  let data = [];
+  data.push(chapter1);
+  data.push(chapter2);
+  data.push(chapter3);
+  data.push(chapter4);
+  data.push(chapter5);
+  data.push(chapter6);
+  data.push(chapter7);
+
+
   console.log(data.length);
-  const [poem, setPoem] = useState(data[0]);
+  const [poem, setPoem] = useState(data[0].poems.五言古诗[0]);
   const [isSideBarShowing, setSideBarShowing] = useState(true);
   // const [isColorButtonShowing, setIsColorButtonShowing] = useState(false);
 
@@ -23,8 +32,24 @@ function App() {
             data.map((element, i) => {
               return (
               <div>
-                <li key={i} onClick={() => setPoem(element)}>
-                  {element.title}-{element.author}
+                <li key={i}>
+                  {element.chapter}
+                  <ul>
+                    {Object.keys(element.poems).map((category, j) => {
+                      return (<li key={j}>
+                        {category}
+                        <ul>
+                        {
+                          element.poems[category].map((poem, k) => {
+                              return <li key={k}>
+                                  {poem.title}
+                              </li>
+                          })
+                        }
+                        </ul>
+                      </li>)
+                    })}
+                  </ul>
                 </li>
               </div>
               )

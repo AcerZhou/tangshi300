@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
 import './App.css';
-import data from './data/tangshi300.json';
+import chapter1 from './data/tangshi300_1.json';
+import chapter2 from './data/tangshi300_2.json';
+import chapter3 from './data/tangshi300_3.json';
+import chapter4 from './data/tangshi300_4.json';
+import chapter5 from './data/tangshi300_5.json';
+import chapter6 from './data/tangshi300_6.json';
+import chapter7 from './data/tangshi300_7.json';
 
 function App() {
-
+  let data = chapter1.concat(chapter2).concat(chapter3).concat(chapter4).concat(chapter5).concat(chapter6).concat(chapter7)
+  console.log(data.length);
   const [poem, setPoem] = useState(data[0]);
   const [isSideBarShowing, setSideBarShowing] = useState(true);
   // const [isColorButtonShowing, setIsColorButtonShowing] = useState(false);

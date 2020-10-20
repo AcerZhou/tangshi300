@@ -41,7 +41,7 @@ function App() {
                         <ul>
                         {
                           element.poems[category].map((poem, k) => {
-                              return <li key={k}>
+                              return <li key={k} onClick={() => setPoem(poem)}>
                                   {poem.title}
                               </li>
                           })
@@ -51,6 +51,9 @@ function App() {
                     })}
                   </ul>
                 </li>
+                {/* <li key={i} onClick={() => setPoem(element)}>
+                  {element.title}-{element.author}
+                </li> */}
               </div>
               )
             })

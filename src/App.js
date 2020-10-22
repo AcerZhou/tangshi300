@@ -17,11 +17,21 @@ function App() {
   data.push(chapter5);
   data.push(chapter6);
   data.push(chapter7);
+  let initChildrenShowing = {};
 
+  for(let i = 0; i < data.length; i++){
+    initChildrenShowing[i] = {
+      showing: false,
+    };
 
-  console.log(data.length);
+    Object.keys(data[i].poems).forEach(c => {
+      initChildrenShowing[i][c] = false;
+    })
+  }
+
   const [poem, setPoem] = useState(data[0].poems.五言古诗[0]);
   const [isSideBarShowing, setSideBarShowing] = useState(true);
+  const [childrenShowing, setChildrenShowing] = useState(initChildrenShowing);
   // const [isColorButtonShowing, setIsColorButtonShowing] = useState(false);
 
   return (
@@ -32,28 +42,34 @@ function App() {
             data.map((element, i) => {
               return (
               <div>
-                <li key={i}>
+                <li key={i} onClick={() => setChildrenShowing({...childrenShowing, [i]:{...childrenShowing[i], showing: !childrenShowing[i].showing} }) }>
                   {element.chapter}
-                  <ul>
+                  <div>                  
+                  {
+                    childrenShowing[i].showing ? 
+                    <ul>
                     {Object.keys(element.poems).map((category, j) => {
-                      return (<li key={j}>
+                      return (<li key={j}  onClick={(e) =>{e.stopPropagation(); setChildrenShowing({...childrenShowing, [i]:{...childrenShowing[i], [category]: !childrenShowing[i][category]} })}}>
                         {category}
-                        <ul>
                         {
-                          element.poems[category].map((poem, k) => {
-                              return <li key={k} onClick={() => setPoem(poem)}>
-                                  {poem.title}
-                              </li>
-                          })
+                          childrenShowing[i][category] ?
+                          <ul>
+                          {
+                            element.poems[category].map((poem, k) => {
+                                return <li key={k} onClick={(e) => {e.stopPropagation(); setPoem(poem)}}>
+                                    {poem.title}
+                                </li>
+                            })
+                          }
+                          </ul> : null
                         }
-                        </ul>
                       </li>)
                     })}
-                  </ul>
+                  </ul> :
+                  null
+                  }
+                  </div>
                 </li>
-                {/* <li key={i} onClick={() => setPoem(element)}>
-                  {element.title}-{element.author}
-                </li> */}
               </div>
               )
             })
